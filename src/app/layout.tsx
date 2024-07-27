@@ -6,8 +6,8 @@ import ConvexClerkProvider from "@/providers/ConvexClerkProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Podcastr",
-  description: "Generated Your Podcast Using AI",
+  title: "Podify",
+  description: "Generate Your Own Podcast Using AI",
   icons: {
     icon: "/icons/logo.svg",
   },
