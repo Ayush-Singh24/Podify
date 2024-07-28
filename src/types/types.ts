@@ -19,7 +19,7 @@ export interface PodcastCardProps {
 export interface GeneratePodcastProps {
   setAudioStorageID: Dispatch<SetStateAction<Id<"_storage"> | null>>;
   setAudio: Dispatch<SetStateAction<string>>;
-  voiceType: VoiceType | null;
+  voiceType: VoiceType;
   audio: string;
   voicePrompt: string;
   setVoicePrompt: Dispatch<SetStateAction<string>>;

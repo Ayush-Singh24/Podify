@@ -157,7 +157,7 @@ export default function CreatePodcast() {
             <GeneratePodcast
               setAudioStorageID={setAudioStorageID}
               setAudio={setAudioURL}
-              voiceType={voiceType}
+              voiceType={voiceType ? voiceType : "alloy"}
               audio={audioURL}
               voicePrompt={voicePrompt}
               setVoicePrompt={setVoicePrompt}
