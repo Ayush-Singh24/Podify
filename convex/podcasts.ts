@@ -4,9 +4,9 @@ import { Id } from "./_generated/dataModel";
 
 export const getURL = mutation({
   args: {
-    storageID: v.string(),
+    storageID: v.id("_storage"),
   },
   handler: async (ctx, args) => {
-    await ctx.storage.getUrl(args.storageID as Id<"_storage">);
+    return await ctx.storage.getUrl(args.storageID);
   },
 });

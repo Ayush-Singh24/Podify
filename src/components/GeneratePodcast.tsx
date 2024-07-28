@@ -9,6 +9,7 @@ import { api } from "../../convex/_generated/api";
 import { v4 as uuidv4 } from "uuid";
 import { useUploadFiles } from "@xixixao/uploadstuff/react";
 import { useToast } from "./ui/use-toast";
+import { base64ToArrayBuffer } from "@/utils";
 
 const useGeneratePodcast = ({
   setAudio,
@@ -17,7 +18,7 @@ const useGeneratePodcast = ({
   setAudioStorageID,
 }: GeneratePodcastProps) => {
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
-  const getPodcastAudio = useAction(api.openai.generateAudioAction);
+  const getPodcastAudio = useAction(api.tts.generateAudioAction);
   const generateUploadUrl = useMutation(api.files.generateUploadUrl);
   const { startUpload } = useUploadFiles(generateUploadUrl);
   const getAudioURL = useMutation(api.podcasts.getURL);
@@ -37,11 +38,12 @@ const useGeneratePodcast = ({
 
     try {
       const response = await getPodcastAudio({
-        voice: voiceType,
         input: voicePrompt,
       });
 
-      const blob = new Blob([response], { type: "audio/mpeg" });
+      const buffer = base64ToArrayBuffer(response);
+
+      const blob = new Blob([buffer], { type: "audio/mpeg" });
       const fileName = `podcast-${uuidv4()}.mp3`;
       const file = new File([blob], fileName, { type: "audio/mpeg" });
 
