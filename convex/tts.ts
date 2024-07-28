@@ -1,7 +1,7 @@
 import { action } from "./_generated/server";
 import { v } from "convex/values";
 
-const apiKey = "AIzaSyDQkoXec3Sl4BJwSJYvwgkWcgsBTz2zSU0";
+const apiKey = process.env.GCP_TTS_API_KEY;
 
 export const generateAudioAction = action({
   args: { input: v.string() },
