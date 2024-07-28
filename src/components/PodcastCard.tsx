@@ -1,11 +1,5 @@
+import { PodcastCardProps } from "@/types/types";
 import Image from "next/image";
-
-interface PodcastCardProps {
-  podcastID: number;
-  imgURL: string;
-  description: string;
-  title: string;
-}
 
 export default function PodcastCard({
   imgURL,

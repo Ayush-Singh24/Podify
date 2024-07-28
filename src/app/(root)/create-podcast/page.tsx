@@ -28,8 +28,16 @@ import GeneratePodcast from "@/components/GeneratePodcast";
 import GenerateThumbnail from "@/components/GenerateThumbnail";
 import { Loader } from "lucide-react";
 import { Id } from "../../../../convex/_generated/dataModel";
+import { VoiceType } from "@/types/types";
 
-const voiceCategories = ["alloy", "shimmer", "nova", "echo", "fable", "onyx"];
+const voiceCategories: VoiceType[] = [
+  "alloy",
+  "shimmer",
+  "nova",
+  "echo",
+  "fable",
+  "onyx",
+];
 
 const formSchema = z.object({
   podcastTitle: z.string().min(2),
@@ -39,7 +47,7 @@ const formSchema = z.object({
 export default function CreatePodcast() {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  const [voiceType, setVoiceType] = useState<string | null>(null);
+  const [voiceType, setVoiceType] = useState<VoiceType | null>(null);
   const [voicePrompt, setVoicePrompt] = useState<string>("");
 
   const [imagePrompt, setImagePrompt] = useState<string>("");
@@ -81,13 +89,13 @@ export default function CreatePodcast() {
               render={({ field }) => (
                 <FormItem className="flex flex-col gap-2.5">
                   <FormLabel className="text-16 font-bold text-white-1">
-                    Username
+                    Title
                   </FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Title"
                       {...field}
-                      className="input-class focus-visible:ring-orange-1"
+                      className="input-class focus-visible:ring-offset-orange-1"
                     />
                   </FormControl>
                   <FormMessage className="text-white-1" />
@@ -98,10 +106,10 @@ export default function CreatePodcast() {
               <Label className="text-16 font-bold text-white-1">
                 Select AI Voice
               </Label>
-              <Select onValueChange={(value) => setVoiceType(value)}>
+              <Select onValueChange={(value: VoiceType) => setVoiceType(value)}>
                 <SelectTrigger
                   className={cn(
-                    "text-16 w-full border-none bg-black-1 text-gray-1"
+                    "text-16 w-full border-none bg-black-1 text-gray-1 focus-visible:ring-offset-orange-1 rounded-md"
                   )}
                 >
                   <SelectValue
@@ -109,7 +117,7 @@ export default function CreatePodcast() {
                     className="placeholder:text-gray-1"
                   />
                 </SelectTrigger>
-                <SelectContent className="text-16 border-none bg-black-1 font-bold text-white-1 focus:ring-orange-1">
+                <SelectContent className="text-16 border-none bg-black-1 font-bold text-white-1 focus-visible:ring-orange-1">
                   {voiceCategories.map((voice) => {
                     return (
                       <SelectItem
@@ -131,13 +139,13 @@ export default function CreatePodcast() {
               render={({ field }) => (
                 <FormItem className="flex flex-col gap-2.5">
                   <FormLabel className="text-16 font-bold text-white-1">
-                    Username
+                    Description
                   </FormLabel>
                   <FormControl>
                     <Textarea
                       placeholder="Write a short description for your podcast"
                       {...field}
-                      className="input-class focus-visible:ring-orange-1"
+                      className="input-class focus-visible:ring-offset-orange-1"
                     />
                   </FormControl>
                   <FormMessage className="text-white-1" />
@@ -146,7 +154,15 @@ export default function CreatePodcast() {
             />
           </div>
           <div className="flex flex-col pt-10">
-            <GeneratePodcast />
+            <GeneratePodcast
+              setAudioStorageID={setAudioStorageID}
+              setAudio={setAudioURL}
+              voiceType={voiceType}
+              audio={audioURL}
+              voicePrompt={voicePrompt}
+              setVoicePrompt={setVoicePrompt}
+              setAudioDuration={setAudioDuration}
+            />
             <GenerateThumbnail />
             <div className="mt-10 w-full">
               <Button
