@@ -1,13 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { Id } from "../../convex/_generated/dataModel";
 
-export type VoiceType =
-  | "alloy"
-  | "shimmer"
-  | "nova"
-  | "echo"
-  | "fable"
-  | "onyx";
+export type VoiceType = "male" | "female";
 
 export interface PodcastCardProps {
   podcastID: number;

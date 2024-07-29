@@ -30,14 +30,7 @@ import { Loader } from "lucide-react";
 import { Id } from "../../../../convex/_generated/dataModel";
 import { VoiceType } from "@/types/types";
 
-const voiceCategories: VoiceType[] = [
-  "alloy",
-  "shimmer",
-  "nova",
-  "echo",
-  "fable",
-  "onyx",
-];
+const voiceCategories: VoiceType[] = ["male", "female"];
 
 const formSchema = z.object({
   podcastTitle: z.string().min(2),
@@ -157,7 +150,7 @@ export default function CreatePodcast() {
             <GeneratePodcast
               setAudioStorageID={setAudioStorageID}
               setAudio={setAudioURL}
-              voiceType={voiceType ? voiceType : "alloy"}
+              voiceType={voiceType ? voiceType : "male"}
               audio={audioURL}
               voicePrompt={voicePrompt}
               setVoicePrompt={setVoicePrompt}

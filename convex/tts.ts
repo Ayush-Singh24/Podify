@@ -4,7 +4,7 @@ import { v } from "convex/values";
 const apiKey = process.env.GCP_TTS_API_KEY;
 
 export const generateAudioAction = action({
-  args: { input: v.string() },
+  args: { input: v.string(), voice: v.string() },
   handler: async (_, args) => {
     const payload = {
       audioConfig: {
@@ -18,7 +18,7 @@ export const generateAudioAction = action({
       },
       voice: {
         languageCode: "en-US",
-        name: "en-US-Journey-F",
+        name: args.voice === "male" ? "en-US-Standard-J" : "en-US-Standard-F",
       },
     };
 
@@ -31,7 +31,9 @@ export const generateAudioAction = action({
     );
 
     const data = await response.json();
-
-    return data.audioContent;
+    if ("audioContent" in data) {
+      return data.audioContent;
+    }
+    throw new Error("Podcast could not be created!");
   },
 });

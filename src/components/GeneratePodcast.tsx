@@ -39,6 +39,7 @@ const useGeneratePodcast = ({
     try {
       const response = await getPodcastAudio({
         input: voicePrompt,
+        voice: voiceType,
       });
 
       const buffer = base64ToArrayBuffer(response);
