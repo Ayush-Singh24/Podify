@@ -2,7 +2,7 @@ import { GeneratePodcastProps } from "@/types/types";
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
-import { Loader, ReceiptPoundSterling } from "lucide-react";
+import { Loader } from "lucide-react";
 import { useState } from "react";
 import { useAction, useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
@@ -87,10 +87,11 @@ export default function GeneratePodcast(props: GeneratePodcastProps) {
           className="input-class font-light focus-visible:ring-offset-orange-1"
           placeholder="Provide text to generate audio"
           rows={5}
+          value={props.voicePrompt}
           onChange={(e) => props.setVoicePrompt(e.target.value)}
         />
       </div>
-      <div className="mt-5 max-w-[200px]">
+      <div className="mt-5 w-full max-w-[200px]">
         <Button
           type="submit"
           onClick={generatePodcast}

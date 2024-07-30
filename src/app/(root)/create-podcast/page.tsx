@@ -156,7 +156,13 @@ export default function CreatePodcast() {
               setVoicePrompt={setVoicePrompt}
               setAudioDuration={setAudioDuration}
             />
-            <GenerateThumbnail />
+            <GenerateThumbnail
+              setImage={setImageURL}
+              setImageStorageID={setImageStorageID}
+              image={imageURL}
+              imagePrompt={imagePrompt}
+              setImagePrompt={setImagePrompt}
+            />
             <div className="mt-10 w-full">
               <Button
                 type="submit"
