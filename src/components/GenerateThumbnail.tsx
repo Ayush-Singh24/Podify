@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 import { Loader } from "lucide-react";
 import { GenerateThumbnailProps } from "@/types/types";
+import { Input } from "./ui/input";
+import Image from "next/image";
+import { useToast } from "./ui/use-toast";
+import { useUploadFiles } from "@xixixao/uploadstuff/react";
+import { generateUploadUrl } from "../../convex/files";
+import { useMutation } from "convex/react";
+import { api } from "../../convex/_generated/api";
 
 export default function GenerateThumbnail({
   setImage,
@@ -14,8 +21,59 @@ export default function GenerateThumbnail({
   setImagePrompt,
 }: GenerateThumbnailProps) {
   const [isAiThumbnail, setIsAiThumbnail] = useState<boolean>(false);
-  const [isGenerating, setIsGenerating] = useState<boolean>(false);
+  const [isImageLoading, setIsImageLoading] = useState<boolean>(false);
 
+  const generateUploadUrl = useMutation(api.files.generateUploadUrl);
+  const { startUpload } = useUploadFiles(generateUploadUrl);
+
+  const getImageURL = useMutation(api.podcasts.getURL);
+
+  const imgRef = useRef<HTMLInputElement>(null);
+  const { toast } = useToast();
+
+  const handleImage = async (blob: Blob, fileName: string) => {
+    setIsImageLoading(true);
+    setImage("");
+    try {
+      const file = new File([blob], fileName, { type: "image/png" });
+      const uploaded = await startUpload([file]);
+      const storageID = (uploaded[0].response as any).storageId;
+      setImageStorageID(storageID);
+
+      const imageURL = await getImageURL({ storageID });
+
+      if (!imageURL) {
+        throw new Error("URL could not be generated");
+      }
+
+      setImage(imageURL);
+      setIsImageLoading(false);
+      toast({
+        title: "Thumbnail Generated Successfully!",
+      });
+    } catch (error) {
+      console.log(error);
+      toast({
+        title: "Error generating thumbnail",
+      });
+    }
+  };
+  const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    try {
+      const files = e.target.files;
+      if (!files) return;
+      const file = files[0];
+      const blob = await file.arrayBuffer().then((ab) => new Blob([ab]));
+
+      handleImage(blob, file.name);
+    } catch (error) {
+      console.log(error);
+      toast({
+        title: "Could not upload image!",
+      });
+    }
+  };
   const generateImage = () => {};
   return (
     <>
@@ -57,7 +115,7 @@ export default function GenerateThumbnail({
               onClick={generateImage}
               className="text-16 bg-orange-1 py-4 font-bold text-white-1"
             >
-              {isGenerating ? (
+              {isImageLoading ? (
                 <>
                   Generating
                   <Loader size={20} className="animate-spin ml-2" />
@@ -69,7 +127,44 @@ export default function GenerateThumbnail({
           </div>
         </div>
       ) : (
-        <div></div>
+        <div className="image_div" onClick={() => imgRef?.current?.click()}>
+          <Input
+            type="file"
+            className="hidden"
+            ref={imgRef}
+            onChange={(e) => uploadImage(e)}
+          />
+          {!isImageLoading ? (
+            <Image
+              src="/icons/upload-image.svg"
+              width={40}
+              height={40}
+              alt="upload"
+            />
+          ) : (
+            <div className="text-16 flex-center font-medium text-white-1">
+              Uploading
+              <Loader size={20} className="animate-spin ml-2" />
+            </div>
+          )}
+          <div className="flex flex-col gap-1 items-center">
+            <h2 className="text-12 font-bold text-orange-1">Click to Upload</h2>
+            <p className="text-12 font-normal text-gray-1">
+              SVG, JPEG, PNG OR GIF (max. 1080x1080px)
+            </p>
+          </div>
+        </div>
+      )}
+      {image && (
+        <div className="flex-center w-full">
+          <Image
+            src={image}
+            width={200}
+            height={200}
+            className="mt-5"
+            alt="thumbnail"
+          />
+        </div>
       )}
     </>
   );
