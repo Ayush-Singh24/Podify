@@ -9,8 +9,8 @@ import { Input } from "./ui/input";
 import Image from "next/image";
 import { useToast } from "./ui/use-toast";
 import { useUploadFiles } from "@xixixao/uploadstuff/react";
-import { generateUploadUrl } from "../../convex/files";
-import { useMutation } from "convex/react";
+import { v4 as uuidv4 } from "uuid";
+import { useAction, useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 
 export default function GenerateThumbnail({
@@ -27,6 +27,7 @@ export default function GenerateThumbnail({
   const { startUpload } = useUploadFiles(generateUploadUrl);
 
   const getImageURL = useMutation(api.podcasts.getURL);
+  const generateThumbnail = useAction(api.tti.generateThumbnailAction);
 
   const imgRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
@@ -74,7 +75,23 @@ export default function GenerateThumbnail({
       });
     }
   };
-  const generateImage = () => {};
+
+  const generateImage = async () => {
+    try {
+      setIsImageLoading(true);
+      const response = await generateThumbnail({ input: imagePrompt });
+      const blob = new Blob([response]);
+      const fileName = `podcast-${uuidv4()}.mp3`;
+
+      handleImage(blob, fileName);
+    } catch (error) {
+      console.log(error);
+      toast({
+        title: "Could not upload image!",
+      });
+    }
+  };
+
   return (
     <>
       <div className="generate_thumbnail">
