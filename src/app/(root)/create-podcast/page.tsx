@@ -29,6 +29,10 @@ import GenerateThumbnail from "@/components/GenerateThumbnail";
 import { Loader } from "lucide-react";
 import { Id } from "../../../../convex/_generated/dataModel";
 import { VoiceType } from "@/types/types";
+import { useToast } from "@/components/ui/use-toast";
+import { useMutation } from "convex/react";
+import { api } from "../../../../convex/_generated/api";
+import { useRouter } from "next/navigation";
 
 const voiceCategories: VoiceType[] = ["male", "female"];
 
@@ -38,6 +42,7 @@ const formSchema = z.object({
 });
 
 export default function CreatePodcast() {
+  const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const [voiceType, setVoiceType] = useState<VoiceType | null>(null);
@@ -55,6 +60,10 @@ export default function CreatePodcast() {
   );
   const [audioDuration, setAudioDuration] = useState<number>(0);
 
+  const createPodcast = useMutation(api.podcasts.createPodcast);
+
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -63,8 +72,46 @@ export default function CreatePodcast() {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    try {
+      setIsSubmitting(true);
+      if (!audioURL || !imageURL || !voiceType) {
+        toast({
+          title: "Please generate audio and image",
+        });
+        setIsSubmitting(false);
+        throw new Error("Please generate audio and image");
+      }
+
+      if (!audioStorageID || !imageStorageID) {
+        throw new Error("Could not get storage IDs");
+      }
+
+      const podcast = await createPodcast({
+        podcastTitle: data.podcastTitle,
+        podcastDescription: data.podcastDescription,
+        audioURL,
+        imageURL,
+        voiceType,
+        imagePrompt,
+        voicePrompt,
+        views: 0,
+        audioDuration,
+        audioStorageID: audioStorageID,
+        imageStorageID: imageStorageID,
+      });
+
+      toast({
+        title: "Podcast created!",
+      });
+      setIsSubmitting(false);
+      router.push("/");
+    } catch (error) {
+      toast({
+        title: "Error",
+      });
+      setIsSubmitting(false);
+    }
   };
 
   return (
