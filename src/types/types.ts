@@ -27,3 +27,10 @@ export interface GenerateThumbnailProps {
   imagePrompt: string;
   setImagePrompt: Dispatch<SetStateAction<string>>;
 }
+
+export interface EmptyStateProps {
+  title: string;
+  search?: boolean;
+  buttonLink?: string;
+  buttonText?: string;
+}
