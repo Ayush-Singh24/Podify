@@ -10,6 +10,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "hidden-dalmatian-629.convex.cloud",
       },
+      {
+        protocol: "https",
+        hostname: "img.clerk.com",
+      },
     ],
   },
 };

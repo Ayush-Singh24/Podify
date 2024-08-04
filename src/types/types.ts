@@ -34,3 +34,16 @@ export interface EmptyStateProps {
   buttonLink?: string;
   buttonText?: string;
 }
+
+export interface PodcastDetailPlayerProps {
+  audioURL?: string;
+  podcastTitle: string;
+  author: string;
+  isOwner: boolean;
+  imageURL?: string;
+  podcastID: Id<"podcasts">;
+  imageStorageID?: Id<"_storage">;
+  audioStorageID?: Id<"_storage">;
+  authorImageURL?: string;
+  authorID: string;
+}

@@ -7,17 +7,21 @@ import PodcastDetailPlayer from "@/components/PodcastDetailPlayer";
 import LoaderSpinner from "@/components/LoaderSpinner";
 import PodcastCard from "@/components/PodcastCard";
 import EmptyState from "@/components/EmptyState";
+import { useUser } from "@clerk/nextjs";
 
 export default function PodcastDetails({
   params: { podcastID },
 }: {
   params: { podcastID: Id<"podcasts"> };
 }) {
+  const { user } = useUser();
   const podcast = useQuery(api.podcasts.getPodcastByID, { podcastID });
 
   const morePodcasts = useQuery(api.podcasts.getPodcastsByAuthorID, {
     authorID: podcast ? podcast.authorID : "",
   });
+
+  const isOwner = user?.id === podcast?.authorID;
 
   if (!podcast || !morePodcasts) return <LoaderSpinner />;
 
@@ -35,7 +39,11 @@ export default function PodcastDetails({
           <h2 className="text-16 font-bold text-white-1">{podcast?.views}</h2>
         </figure>
       </header>
-      <PodcastDetailPlayer />
+      <PodcastDetailPlayer
+        isOwner={isOwner}
+        {...podcast}
+        podcastID={podcast._id}
+      />
       <p className="text-white-2 text-16 pb-8 pt-[45px] font-medium max-md:text-center">
         {podcast?.podcastDescription}
       </p>
