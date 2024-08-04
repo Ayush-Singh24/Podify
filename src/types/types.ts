@@ -4,7 +4,7 @@ import { Id } from "../../convex/_generated/dataModel";
 export type VoiceType = "male" | "female";
 
 export interface PodcastCardProps {
-  podcastID: number;
+  podcastID: Id<"podcasts">;
   imgURL: string;
   description: string;
   title: string;
