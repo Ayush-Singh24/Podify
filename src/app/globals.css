@@ -108,6 +108,15 @@ html {
   backdrop-filter: blur(37px);
   -webkit-backdrop-filter: blur(37px);
 }
+.bg-nav-focus {
+  background: rgb(21, 23, 28);
+  background: linear-gradient(
+    90deg,
+    rgba(21, 23, 28, 1) 0%,
+    rgba(59, 50, 11, 1) 100%,
+    rgba(0, 0, 0, 1) 100%
+  );
+}
 
 /* ======= clerk overrides ======== */
 .cl-socialButtonsIconButton {
