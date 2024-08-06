@@ -6,6 +6,9 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import { useState } from "react";
+import { useToast } from "./ui/use-toast";
+import { useMutation } from "convex/react";
+import { api } from "../../convex/_generated/api";
 
 export default function PodcastDetailPlayer({
   isOwner,
@@ -13,12 +16,31 @@ export default function PodcastDetailPlayer({
   imageURL,
   authorImageURL,
   podcastTitle,
+  podcastID,
+  imageStorageID,
+  audioStorageID,
   authorID,
 }: PodcastDetailPlayerProps) {
   const router = useRouter();
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
-  const handleDelete = () => {};
+  const deletePodcast = useMutation(api.podcasts.deletePodcast);
+
+  const { toast } = useToast();
+
+  const handleDelete = async () => {
+    try {
+      if (!imageStorageID || !audioStorageID) {
+        throw new Error("Internal Error");
+      }
+      await deletePodcast({ podcastID, imageStorageID, audioStorageID });
+    } catch (error) {
+      console.log("error while deleting podcast");
+      toast({
+        title: "Could not delete the podcast",
+      });
+    }
+  };
 
   if (!imageURL || !authorImageURL) return <LoaderSpinner />;
   return (
