@@ -6,10 +6,16 @@ import Header from "./Header";
 import Carousel from "./Carousel";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
+import { useRouter } from "next/navigation";
+import LoaderSpinner from "./LoaderSpinner";
 
 export default function RightSidebar() {
   const { user } = useUser();
   const topPodcasters = useQuery(api.users.getTopUserByPodcastCount);
+  const router = useRouter();
+
+  if (!topPodcasters) return <LoaderSpinner />;
+
   return (
     <section className="right_sidebar text-white-1">
       <SignedIn>
@@ -29,9 +35,40 @@ export default function RightSidebar() {
         </Link>
       </SignedIn>
 
-      <section>
+      <section className="flex flex-col gap-2">
         <Header headerTitle="Fans Like You" />
         <Carousel fansLikeDetail={topPodcasters!} />
+      </section>
+
+      <section className="flex flex-col gap-8 pt-10">
+        <Header headerTitle="Top Podcasters" />
+        <div className="flex flex-col gap-6">
+          {topPodcasters?.slice(0, 4).map((podcaster) => {
+            return (
+              <div
+                key={podcaster._id}
+                className="flex cursor-pointer justify-between"
+                onClick={() => router.push(`/profile/${podcaster.clerkID}`)}
+              >
+                <figure className="flex items-center gap-2 w-full">
+                  <Image
+                    src={podcaster.image}
+                    alt={podcaster.name}
+                    width={44}
+                    height={44}
+                    className="aspect-square rounded-[50%]"
+                  />
+                  <h2 className="text-14 font-semibold text-white-1">
+                    {podcaster.name}
+                  </h2>
+                  <p className="text-12 font-normal flex-end ml-auto">
+                    {podcaster.totalPodcasts} podcasts
+                  </p>
+                </figure>
+              </div>
+            );
+          })}
+        </div>
       </section>
     </section>
   );
