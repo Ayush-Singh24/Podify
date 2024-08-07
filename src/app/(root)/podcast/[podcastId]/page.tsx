@@ -63,30 +63,28 @@ export default function PodcastDetails({
       <section className="mt-8 flex flex-col gap-5">
         <h1 className="text-20 font-bold text-white-1">More From The Author</h1>
 
-        {morePodcasts && morePodcasts.length > 0 ? (
+        {morePodcasts && morePodcasts.length > 1 ? (
           <div className="podcast_grid">
-            {morePodcasts?.map((podcast) => {
-              return podcastID !== podcast._id ? (
-                <PodcastCard
-                  key={podcast._id}
-                  imgURL={podcast.imageURL ? podcast.imageURL : ""}
-                  title={podcast.podcastTitle}
-                  description={podcast.podcastDescription}
-                  podcastID={podcast._id}
-                />
-              ) : (
-                <></>
-              );
-            })}
+            {morePodcasts
+              ?.filter((podcast) => podcastID !== podcast._id)
+              .map((podcast) => {
+                return (
+                  <PodcastCard
+                    key={podcast._id}
+                    imgURL={podcast.imageURL ? podcast.imageURL : ""}
+                    title={podcast.podcastTitle}
+                    description={podcast.podcastDescription}
+                    podcastID={podcast._id}
+                  />
+                );
+              })}
           </div>
         ) : (
-          <>
-            <EmptyState
-              title="Nothing more from the author"
-              buttonLink="/discover"
-              buttonText="Discover more podcasts"
-            />
-          </>
+          <EmptyState
+            title="Nothing more from the author"
+            buttonLink="/discover"
+            buttonText="Discover more podcasts"
+          />
         )}
       </section>
     </section>
