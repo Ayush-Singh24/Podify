@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useToast } from "./ui/use-toast";
 import { useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
+import { useAudio } from "@/providers/AudioProvider";
 
 export default function PodcastDetailPlayer({
   isOwner,
@@ -18,6 +19,7 @@ export default function PodcastDetailPlayer({
   podcastTitle,
   podcastID,
   imageStorageID,
+  audioURL,
   audioStorageID,
   authorID,
 }: PodcastDetailPlayerProps) {
@@ -27,6 +29,8 @@ export default function PodcastDetailPlayer({
   const deletePodcast = useMutation(api.podcasts.deletePodcast);
 
   const { toast } = useToast();
+
+  const { setAudio } = useAudio();
 
   const handleDelete = async () => {
     try {
@@ -46,6 +50,16 @@ export default function PodcastDetailPlayer({
         title: "Could not delete the podcast",
       });
     }
+  };
+
+  const handlePlay = () => {
+    setAudio({
+      title: podcastTitle,
+      podcastID: podcastID,
+      audioURL: audioURL ? audioURL : "",
+      imageURL: imageURL ? imageURL : "",
+      author: author,
+    });
   };
 
   if (!imageURL || !authorImageURL) return <LoaderSpinner />;
@@ -78,7 +92,10 @@ export default function PodcastDetailPlayer({
               <h2 className="text-16 font-normal text-white-3">{author}</h2>
             </figure>
           </article>
-          <Button className="text-16 w-full max-w-[250px] bg-orange-1 font-extrabold text-white-1">
+          <Button
+            className="text-16 w-full max-w-[250px] bg-orange-1 font-extrabold text-white-1"
+            onClick={handlePlay}
+          >
             <Image
               src="/icons/Play.svg"
               width={20}

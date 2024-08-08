@@ -65,3 +65,16 @@ export interface TopPodcastersProps {
 export interface CarouselProps {
   fansLikeDetail: TopPodcastersProps[];
 }
+
+export interface AudioProps {
+  title: string;
+  audioURL: string;
+  author: string;
+  imageURL: string;
+  podcastID: string;
+}
+
+export interface AudioContextType {
+  audio: AudioProps | undefined;
+  setAudio: React.Dispatch<React.SetStateAction<AudioProps | undefined>>;
+}
