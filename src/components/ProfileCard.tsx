@@ -63,7 +63,7 @@ export default function ProfileCard({
             {userFirstName}
           </h1>
         </div>
-        <figure className="flex gap-3 py-6">
+        <figure className="flex items-center gap-3 py-6">
           <Image
             src="/icons/headphone.svg"
             width={24}
@@ -71,7 +71,7 @@ export default function ProfileCard({
             alt="headphones"
           />
           <h2 className="text-16 font-semibold text-white-1">
-            {/* {podcastsData?.listeners} &nbsp; */}
+            10{" "}
             <span className="font-normal text-white-2">monthly listeners</span>
           </h2>
         </figure>
