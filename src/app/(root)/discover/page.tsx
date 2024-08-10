@@ -19,7 +19,10 @@ export default function Discover({
     <div className="flex flex-col gap-9">
       <SearchBar />
       <div className="flex flex-col gap-9">
-        <h1 className="text-20 font-bold text-white-1">Discover</h1>
+        <h1 className="text-20 font-bold text-white-1">
+          {!search ? "Discover Trendidng Podcasts" : "Search results for: "}{" "}
+          {search && <span className="text-white-2">{search}</span>}
+        </h1>
         {podcastsData ? (
           <>
             {podcastsData.length > 0 ? (
