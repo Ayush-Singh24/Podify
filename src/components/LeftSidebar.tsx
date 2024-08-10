@@ -11,7 +11,7 @@ import { Button } from "./ui/button";
 export default function LeftSidebar() {
   const pathname = usePathname();
   const router = useRouter();
-  const { signOut } = useClerk();
+  const { signOut, user } = useClerk();
   return (
     <section className="left_sidebar">
       <nav className="flex flex-col gap-6">
@@ -48,6 +48,26 @@ export default function LeftSidebar() {
             </Link>
           );
         })}
+        <SignedIn>
+          <Link
+            href={`/profile/${user?.id}`}
+            className={cn(
+              "flex gap-3 items-center py-4 max-lg:px-4 justify-center lg:justify-start",
+              {
+                "bg-nav-focus border-r-4 border-orange-1":
+                  pathname === `/profile/${user?.id}`,
+              }
+            )}
+          >
+            <Image
+              src="/icons/profile.svg"
+              width={24}
+              height={24}
+              alt="my profile"
+            />
+            <p className="text-white-1">My Profile</p>
+          </Link>
+        </SignedIn>
       </nav>
       <SignedOut>
         <div className="flex-center w-full pb-14 max-lg:px-4 lg:pr-8">
