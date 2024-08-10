@@ -17,7 +17,6 @@ import type {
 import type * as files from "../files.js";
 import type * as http from "../http.js";
 import type * as podcasts from "../podcasts.js";
-import type * as task from "../task.js";
 import type * as tti from "../tti.js";
 import type * as tts from "../tts.js";
 import type * as users from "../users.js";
@@ -34,7 +33,6 @@ declare const fullApi: ApiFromModules<{
   files: typeof files;
   http: typeof http;
   podcasts: typeof podcasts;
-  task: typeof task;
   tti: typeof tti;
   tts: typeof tts;
   users: typeof users;
