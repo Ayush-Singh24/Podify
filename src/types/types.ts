@@ -78,3 +78,29 @@ export interface AudioContextType {
   audio: AudioProps | undefined;
   setAudio: React.Dispatch<React.SetStateAction<AudioProps | undefined>>;
 }
+
+export interface PodcastProps {
+  _id: Id<"podcasts">;
+  _creationTime: number;
+  audioStorageID?: Id<"_storage"> | null;
+  user: Id<"users">;
+  podcastTitle: string;
+  podcastDescription: string;
+  audioURL?: string | null;
+  imageURL?: string | null;
+  imageStorageID?: Id<"_storage"> | null;
+  author: string;
+  authorID: string;
+  authorImageURL: string;
+  voicePrompt: string;
+  imagePrompt: string | null;
+  voiceType: string;
+  audioDuration: number;
+  views: number;
+}
+
+export interface ProfileCardProps {
+  podcastsData: PodcastProps[];
+  imageURL: string;
+  userFirstName: string;
+}
