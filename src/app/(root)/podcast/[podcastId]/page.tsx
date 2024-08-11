@@ -12,7 +12,7 @@ import { useUser } from "@clerk/nextjs";
 export default function PodcastDetails({
   params: { podcastID },
 }: {
-  params: { podcastID: Id<"podcasts"> };
+  params: { podcastID: string };
 }) {
   const { user } = useUser();
   const podcast = useQuery(api.podcasts.getPodcastByID, {
