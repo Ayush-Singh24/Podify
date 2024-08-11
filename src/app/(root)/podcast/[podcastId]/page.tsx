@@ -16,7 +16,7 @@ export default function PodcastDetails({
 }) {
   const { user } = useUser();
   const podcast = useQuery(api.podcasts.getPodcastByID, {
-    podcastInfo: { podcastID },
+    podcastID,
   });
 
   const morePodcasts = useQuery(api.podcasts.getPodcastsByAuthorID, {
