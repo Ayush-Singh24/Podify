@@ -8,6 +8,7 @@ import LoaderSpinner from "@/components/LoaderSpinner";
 import PodcastCard from "@/components/PodcastCard";
 import EmptyState from "@/components/EmptyState";
 import { useUser } from "@clerk/nextjs";
+import { useEffect } from "react";
 
 export default function PodcastDetails({
   params: { podcastID },
@@ -15,7 +16,7 @@ export default function PodcastDetails({
   params: { podcastID: string };
 }) {
   const { user } = useUser();
-  const podcast = useQuery(api.podcasts.getPodcastById2, {
+  const podcast = useQuery(api.podcasts.getPodcastById, {
     podcastID: podcastID,
   });
 

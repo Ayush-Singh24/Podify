@@ -74,20 +74,6 @@ export const getPodcastById = query({
   },
 });
 
-export const getPodcastById2 = query({
-  args: { podcastID: v.string() },
-  handler: async (ctx, args) => {
-    const podcast = await ctx.db
-      .query("podcasts")
-      .filter((q) => q.eq(q.field("_id"), args.podcastID))
-      .unique();
-    if (!podcast) {
-      throw new ConvexError("Podcast not found!");
-    }
-    return podcast;
-  },
-});
-
 export const getPodcastsByAuthorID = query({
   args: { authorID: v.string() },
   handler: async (ctx, args) => {
