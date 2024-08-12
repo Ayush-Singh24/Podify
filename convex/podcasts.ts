@@ -63,6 +63,7 @@ export const getTrendingPodcasts = query({
 export const getPodcastById = query({
   args: { podcastID: v.string() },
   handler: async (ctx, args) => {
+    console.log(args);
     const podcast = await ctx.db
       .query("podcasts")
       .filter((q) => q.eq(q.field("_id"), args.podcastID))
