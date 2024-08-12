@@ -33,21 +33,6 @@ export const getUserById = query({
   },
 });
 
-export const getPodcastById = query({
-  args: { podcastID: v.string() },
-  handler: async (ctx, args) => {
-    console.log(args);
-    const podcast = await ctx.db
-      .query("podcasts")
-      .filter((q) => q.eq(q.field("_id"), args.podcastID))
-      .unique();
-    if (!podcast) {
-      throw new ConvexError("Podcast not found!");
-    }
-    return podcast;
-  },
-});
-
 export const getTopUserByPodcastCount = query({
   args: {},
   handler: async (ctx, args) => {
