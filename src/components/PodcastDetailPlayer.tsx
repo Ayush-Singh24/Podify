@@ -92,7 +92,7 @@ export default function PodcastDetailPlayer({
             width={250}
             height={250}
             alt="podcast image"
-            className="aspect-square rounded-lg"
+            className="aspect-square rounded-lg hover:grayscale cursor-pointer transition-all"
             onClick={handleThumbnailChange}
           />
           <div className="flex w-full flex-col gap-5 max-md:items-center md:gap-9">
