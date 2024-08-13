@@ -38,7 +38,7 @@ const useGeneratePodcast = ({
 
     try {
       const response = await getPodcastAudio({
-        input: voicePrompt,
+        input: voicePrompt.replace(/^\s*$/gim, ""),
         voice: voiceType,
       });
 

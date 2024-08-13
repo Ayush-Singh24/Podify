@@ -79,7 +79,9 @@ export default function GenerateThumbnail({
   const generateImage = async () => {
     try {
       setIsImageLoading(true);
-      const response = await generateThumbnail({ input: imagePrompt });
+      const response = await generateThumbnail({
+        input: imagePrompt.replace(/^\s*$/gim, ""),
+      });
       const blob = new Blob([response]);
       const fileName = `podcast-${uuidv4()}.mp3`;
 
