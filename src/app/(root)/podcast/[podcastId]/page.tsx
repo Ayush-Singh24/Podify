@@ -11,13 +11,13 @@ import { useUser } from "@clerk/nextjs";
 import { useEffect } from "react";
 
 export default function PodcastDetails({
-  params: { podcastID },
+  params,
 }: {
   params: { podcastID: string };
 }) {
   const { user } = useUser();
   const podcast = useQuery(api.podcasts.getPodcastById, {
-    podcastID,
+    podcastID: params.podcastID,
   });
 
   const morePodcasts = useQuery(api.podcasts.getPodcastsByAuthorID, {
@@ -69,7 +69,7 @@ export default function PodcastDetails({
         {morePodcasts && morePodcasts.length > 1 ? (
           <div className="podcast_grid">
             {morePodcasts
-              ?.filter((podcast) => podcastID !== podcast._id)
+              ?.filter((podcast) => params.podcastID !== podcast._id)
               .map((podcast) => {
                 return (
                   <PodcastCard
