@@ -1,10 +1,8 @@
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Dispatch, SetStateAction, useState } from "react";
 import GenerateThumbnail from "./GenerateThumbnail";
