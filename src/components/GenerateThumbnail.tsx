@@ -123,13 +123,14 @@ export default function GenerateThumbnail({
               placeholder="Provide text to generate thumbnail"
               rows={5}
               value={imagePrompt}
-              onChange={(e) => setImagePrompt(e.target.value)}
+              onChange={(e) => setImagePrompt(e.target.value.trimStart())}
             />
           </div>
           <div className="w-full max-w-[200px]">
             <Button
               type="button"
               onClick={generateImage}
+              disabled={imagePrompt.length > 0 ? false : true}
               className="text-16 bg-orange-1 py-4 font-bold text-white-1"
             >
               {isImageLoading ? (

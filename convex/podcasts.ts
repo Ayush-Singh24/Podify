@@ -137,3 +137,24 @@ export const getPodcastBySearch = query({
       .take(10);
   },
 });
+
+export const updateThumbnail = mutation({
+  args: {
+    podcastID: v.id("podcasts"),
+    imageURL: v.string(),
+    imageStorageID: v.id("_storage"),
+    imagePrompt: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const podcast = await ctx.db.get(args.podcastID);
+    if (!podcast) {
+      throw new ConvexError("Podcast not found!");
+    }
+    await ctx.storage.delete(podcast.imageStorageID!);
+    return await ctx.db.patch(args.podcastID, {
+      imageStorageID: args.imageStorageID,
+      imageURL: args.imageURL,
+      imagePrompt: args.imagePrompt,
+    });
+  },
+});

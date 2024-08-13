@@ -88,13 +88,14 @@ export default function GeneratePodcast(props: GeneratePodcastProps) {
           placeholder="Provide text to generate audio"
           rows={5}
           value={props.voicePrompt}
-          onChange={(e) => props.setVoicePrompt(e.target.value)}
+          onChange={(e) => props.setVoicePrompt(e.target.value.trimStart())}
         />
       </div>
       <div className="mt-5 w-full max-w-[200px]">
         <Button
           type="button"
           onClick={generatePodcast}
+          disabled={props.voicePrompt.length > 0 ? false : true}
           className="text-16 bg-orange-1 py-4 font-bold text-white-1"
         >
           {isGenerating ? (
