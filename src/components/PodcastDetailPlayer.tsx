@@ -37,13 +37,12 @@ export default function PodcastDetailPlayer({
       if (!imageStorageID || !audioStorageID) {
         throw new Error("Internal Error");
       }
+      router.push("/");
       await deletePodcast({ podcastID, imageStorageID, audioStorageID });
 
       toast({
         title: "Podcast deleted!",
       });
-
-      router.push("/");
     } catch (error) {
       console.log("error while deleting podcast");
       toast({
