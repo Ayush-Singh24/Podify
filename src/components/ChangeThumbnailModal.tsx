@@ -60,7 +60,7 @@ export default function ChangeThumbnailModal({
 
   return (
     <Dialog open={isThumbnailModalOpen} onOpenChange={setIsThumbnailModalOpen}>
-      <DialogContent className="bg-black-6 border-none text-white-1">
+      <DialogContent className="bg-black-6 border-none text-white-1 px-2">
         <DialogHeader>
           <DialogTitle>Change Thumbnail</DialogTitle>
         </DialogHeader>

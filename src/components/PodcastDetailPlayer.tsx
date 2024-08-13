@@ -11,6 +11,7 @@ import { useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { useAudio } from "@/providers/AudioProvider";
 import ChangeThumbnailModal from "./ChangeThumbnailModal";
+import { cn } from "@/lib/utils";
 
 export default function PodcastDetailPlayer({
   isOwner,
@@ -73,7 +74,9 @@ export default function PodcastDetailPlayer({
   };
 
   const handleThumbnailChange = () => {
-    setIsThumbnailModalOpen(true);
+    if (isOwner) {
+      setIsThumbnailModalOpen(true);
+    }
   };
 
   if (!imageURL || !authorImageURL) return <LoaderSpinner />;
@@ -92,7 +95,9 @@ export default function PodcastDetailPlayer({
             width={250}
             height={250}
             alt="podcast image"
-            className="aspect-square rounded-lg hover:grayscale cursor-pointer transition-all"
+            className={cn("aspect-square rounded-lg  transition-all", {
+              "hover:grayscale cursor-pointer": isOwner,
+            })}
             onClick={handleThumbnailChange}
           />
           <div className="flex w-full flex-col gap-5 max-md:items-center md:gap-9">
