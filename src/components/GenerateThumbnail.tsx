@@ -16,6 +16,7 @@ import { api } from "../../convex/_generated/api";
 export default function GenerateThumbnail({
   setImage,
   setImageStorageID,
+  imageStorageID,
   image,
   imagePrompt,
   setImagePrompt,
@@ -28,6 +29,7 @@ export default function GenerateThumbnail({
 
   const getImageURL = useMutation(api.podcasts.getURL);
   const generateThumbnail = useAction(api.tti.generateThumbnailAction);
+  const deleteImage = useMutation(api.podcasts.deleteImage);
 
   const imgRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
@@ -36,6 +38,9 @@ export default function GenerateThumbnail({
     setIsImageLoading(true);
     setImage("");
     try {
+      if (imageStorageID && imageStorageID.length > 0) {
+        await deleteImage({ imageStorageID: imageStorageID });
+      }
       const file = new File([blob], fileName, { type: "image/png" });
       const uploaded = await startUpload([file]);
       const storageID = (uploaded[0].response as any).storageId;

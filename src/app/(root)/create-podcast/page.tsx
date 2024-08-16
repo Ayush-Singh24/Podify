@@ -196,6 +196,7 @@ export default function CreatePodcast() {
           <div className="flex flex-col pt-10">
             <GeneratePodcast
               setAudioStorageID={setAudioStorageID}
+              audioStorageID={audioStorageID}
               setAudio={setAudioURL}
               voiceType={voiceType ? voiceType : "male"}
               audio={audioURL}
@@ -206,6 +207,7 @@ export default function CreatePodcast() {
             <GenerateThumbnail
               setImage={setImageURL}
               setImageStorageID={setImageStorageID}
+              imageStorageID={imageStorageID}
               image={imageURL}
               imagePrompt={imagePrompt}
               setImagePrompt={setImagePrompt}

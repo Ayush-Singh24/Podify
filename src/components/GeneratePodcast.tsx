@@ -16,12 +16,15 @@ const useGeneratePodcast = ({
   voiceType,
   voicePrompt,
   setAudioStorageID,
+  audioStorageID,
 }: GeneratePodcastProps) => {
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const getPodcastAudio = useAction(api.tts.generateAudioAction);
   const generateUploadUrl = useMutation(api.files.generateUploadUrl);
   const { startUpload } = useUploadFiles(generateUploadUrl);
   const getAudioURL = useMutation(api.podcasts.getURL);
+
+  const deleteAudio = useMutation(api.podcasts.deleteAudio);
 
   const { toast } = useToast();
 
@@ -37,6 +40,9 @@ const useGeneratePodcast = ({
     }
 
     try {
+      if (audioStorageID && audioStorageID.length > 0) {
+        await deleteAudio({ audioStorageID: audioStorageID });
+      }
       const response = await getPodcastAudio({
         input: voicePrompt.replace(/^\s*$/gim, ""),
         voice: voiceType,

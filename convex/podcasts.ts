@@ -158,3 +158,17 @@ export const updateThumbnail = mutation({
     });
   },
 });
+
+export const deleteAudio = mutation({
+  args: { audioStorageID: v.id("_storage") },
+  handler: async (ctx, args) => {
+    return await ctx.storage.delete(args.audioStorageID);
+  },
+});
+
+export const deleteImage = mutation({
+  args: { imageStorageID: v.id("_storage") },
+  handler: async (ctx, args) => {
+    return await ctx.storage.delete(args.imageStorageID);
+  },
+});

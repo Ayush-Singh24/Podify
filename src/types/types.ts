@@ -12,6 +12,7 @@ export interface PodcastCardProps {
 
 export interface GeneratePodcastProps {
   setAudioStorageID: Dispatch<SetStateAction<Id<"_storage"> | null>>;
+  audioStorageID: Id<"_storage"> | null;
   setAudio: Dispatch<SetStateAction<string>>;
   voiceType: VoiceType;
   audio: string;
@@ -23,6 +24,7 @@ export interface GeneratePodcastProps {
 export interface GenerateThumbnailProps {
   setImage: Dispatch<SetStateAction<string>>;
   setImageStorageID: Dispatch<SetStateAction<Id<"_storage"> | null>>;
+  imageStorageID: Id<"_storage"> | null;
   image: string;
   imagePrompt: string;
   setImagePrompt: Dispatch<SetStateAction<string>>;
