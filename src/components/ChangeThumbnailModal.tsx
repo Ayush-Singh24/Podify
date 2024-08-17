@@ -63,6 +63,7 @@ export default function ChangeThumbnailModal({
           <DialogTitle>Change Thumbnail</DialogTitle>
         </DialogHeader>
         <GenerateThumbnail
+          imageStorageID={imageStorageID}
           image={imageURL}
           setImage={setImageURL}
           imagePrompt={imagePrompt}
