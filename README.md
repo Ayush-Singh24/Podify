@@ -1,4 +1,8 @@
-# Podify: AI-Powered Podcast Creation
+# Podify: AI-Powered Podcast Creating App
+
+## Check It Out
+
+https://podify-beta.vercel.app
 
 ## Overview
 
@@ -12,13 +16,13 @@ Podify is an innovative podcast app that leverages AI to generate high-quality p
 
 ## Screenshots
 
-- # Login Page:
+- ### Login Page:
   ![login page](image-1.png)
-- # Home Page:
+- ### Home Page:
   ![home page](image.png)
-- # Create Podcast Page:
+- ### Create Podcast Page:
   ![create podcast page](<Screenshot 2024-08-14 013613-1.png>)
-- # Profile Page:
+- ### Profile Page:
   ![profile page](<Screenshot 2024-08-14 013613.png>)
 
 Security
@@ -33,27 +37,14 @@ Technology Stack
 2. Convex + Clerk
 3. Stable Diffusion + GCP-TTS
 
-## Getting Started
+## Run Locally
 
-1. Clone the repository: `git clone https://github.com/Ayush-Singh24/Podify.git
-2. Install dependencies: yarn install
-3. Start the app: yarn start/dev
+1. Clone the repository: `git clone https://github.com/Ayush-Singh24/Podify.git`
+2. Install dependencies: `yarn install`
+3. Setup environment varirables (check `.env.example` file)
+4. Start the app: `yarn start`
+5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Contributing
+## Contributing
 
 Contributions are welcome! Please submit a pull request with your changes.
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-```
