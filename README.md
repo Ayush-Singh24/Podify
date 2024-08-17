@@ -25,12 +25,6 @@ Podify is an innovative podcast app that leverages AI to generate high-quality p
 - ### Profile Page:
   ![profile page](<Screenshot 2024-08-14 013646.png>)
 
-Security
-
-Podify prioritizes security with OAuth authentication, ensuring that user data is protected and secure.
-
-Technology Stack
-
 ## Tech Stack
 
 1. NextJS
