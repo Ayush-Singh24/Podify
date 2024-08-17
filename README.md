@@ -17,13 +17,13 @@ Podify is an innovative podcast app that leverages AI to generate high-quality p
 ## Screenshots
 
 - ### Login Page:
-  ![login page](image-1.png)
+  ![login page](./screenshots/image-1.png)
 - ### Home Page:
-  ![home page](image.png)
+  ![home page](./screenshots/image.png)
 - ### Create Podcast Page:
-  ![create podcast page](<Screenshot 2024-08-14 013613-1.png>)
+  ![create podcast page](./screenshots/Screenshot%202024-08-14%20013613-1.png)
 - ### Profile Page:
-  ![profile page](<Screenshot 2024-08-14 013646.png>)
+  ![profile page](./screenshots/Screenshot%202024-08-14%20013646.png)
 
 ## Tech Stack
 
