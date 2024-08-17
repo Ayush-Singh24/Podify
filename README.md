@@ -1,4 +1,4 @@
-### Podify: AI-Powered Podcast Creation
+# Podify: AI-Powered Podcast Creation
 
 ## Overview
 
@@ -12,10 +12,13 @@ Podify is an innovative podcast app that leverages AI to generate high-quality p
 
 ## Screenshots
 
-- Home Screen:
-  ![]
-- Create Podcast Page: [add image file: create_podcast_page.png]
-- Profile Page:
+- # Login Page:
+  ![login page](image-1.png)
+- # Home Page:
+  ![home page](image.png)
+- # Create Podcast Page:
+  ![create podcast page](<Screenshot 2024-08-14 013613-1.png>)
+- # Profile Page:
   ![profile page](<Screenshot 2024-08-14 013613.png>)
 
 Security
@@ -24,13 +27,17 @@ Podify prioritizes security with OAuth authentication, ensuring that user data i
 
 Technology Stack
 
-- [List your technology stack, e.g. React, Node.js, etc.]
+## Tech Stack
 
-Getting Started
+1. NextJS
+2. Convex + Clerk
+3. Stable Diffusion + GCP-TTS
 
-1. Clone the repository: `git clone (link unavailable)
-2. Install dependencies: npm install
-3. Start the app: npm start
+## Getting Started
+
+1. Clone the repository: `git clone https://github.com/Ayush-Singh24/Podify.git
+2. Install dependencies: yarn install
+3. Start the app: yarn start/dev
 
 Contributing
 
