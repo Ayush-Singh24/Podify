@@ -45,18 +45,18 @@ export default function CreatePodcast() {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  const [voiceType, setVoiceType] = useState<VoiceType | null>(null);
+  const [voiceType, setVoiceType] = useState<VoiceType>("male");
   const [voicePrompt, setVoicePrompt] = useState<string>("");
 
   const [imagePrompt, setImagePrompt] = useState<string>("");
   const [imageStorageID, setImageStorageID] = useState<Id<"_storage"> | null>(
-    null
+    null,
   );
   const [imageURL, setImageURL] = useState<string>("");
 
   const [audioURL, setAudioURL] = useState<string>("");
   const [audioStorageID, setAudioStorageID] = useState<Id<"_storage"> | null>(
-    null
+    null,
   );
   const [audioDuration, setAudioDuration] = useState<number>(0);
 
@@ -149,11 +149,11 @@ export default function CreatePodcast() {
               <Select onValueChange={(value: VoiceType) => setVoiceType(value)}>
                 <SelectTrigger
                   className={cn(
-                    "text-16 w-full border-none bg-black-1 text-gray-1 focus-visible:ring-offset-orange-1 rounded-md"
+                    "text-16 w-full border-none bg-black-1 text-gray-1 focus-visible:ring-offset-orange-1 rounded-md",
                   )}
                 >
                   <SelectValue
-                    placeholder="Select AI Voice"
+                    placeholder={voiceType}
                     className="placeholder:text-gray-1"
                   />
                 </SelectTrigger>
@@ -170,7 +170,6 @@ export default function CreatePodcast() {
                     );
                   })}
                 </SelectContent>
-                {voiceType && <audio src={`/${voiceType}.mp3`} autoPlay />}
               </Select>
             </div>
             <FormField
