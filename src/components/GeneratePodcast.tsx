@@ -9,7 +9,6 @@ import { api } from "../../convex/_generated/api";
 import { v4 as uuidv4 } from "uuid";
 import { useUploadFiles } from "@xixixao/uploadstuff/react";
 import { useToast } from "./ui/use-toast";
-import { base64ToArrayBuffer } from "@/utils";
 
 const useGeneratePodcast = ({
   setAudio,
@@ -48,9 +47,7 @@ const useGeneratePodcast = ({
         voice: voiceType,
       });
 
-      const buffer = base64ToArrayBuffer(response);
-
-      const blob = new Blob([buffer], { type: "audio/mpeg" });
+      const blob = new Blob([response], { type: "audio/wav" });
       const fileName = `podcast-${uuidv4()}.mp3`;
       const file = new File([blob], fileName, { type: "audio/mpeg" });
 

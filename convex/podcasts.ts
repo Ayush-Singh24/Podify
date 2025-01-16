@@ -121,7 +121,7 @@ export const getPodcastBySearch = query({
     const titleSearch = await ctx.db
       .query("podcasts")
       .withSearchIndex("search_title", (q) =>
-        q.search("podcastTitle", args.search)
+        q.search("podcastTitle", args.search),
       )
       .take(10);
 
@@ -132,7 +132,7 @@ export const getPodcastBySearch = query({
     return await ctx.db
       .query("podcasts")
       .withSearchIndex("search_body", (q) =>
-        q.search("podcastDescription" || "podcastTitle", args.search)
+        q.search("podcastDescription" || "podcastTitle", args.search),
       )
       .take(10);
   },
@@ -162,6 +162,10 @@ export const updateThumbnail = mutation({
 export const deleteAudio = mutation({
   args: { audioStorageID: v.id("_storage") },
   handler: async (ctx, args) => {
+    const audioUrl = await ctx.storage.getUrl(args.audioStorageID);
+    if (!audioUrl) {
+      throw new ConvexError("Audio File doesn't exist!");
+    }
     return await ctx.storage.delete(args.audioStorageID);
   },
 });
