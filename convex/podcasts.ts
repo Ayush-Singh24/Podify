@@ -164,7 +164,7 @@ export const deleteAudio = mutation({
   handler: async (ctx, args) => {
     const audioUrl = await ctx.storage.getUrl(args.audioStorageID);
     if (!audioUrl) {
-      throw new ConvexError("Audio File doesn't exist!");
+      return;
     }
     return await ctx.storage.delete(args.audioStorageID);
   },
