@@ -42,12 +42,12 @@ const useGeneratePodcast = ({
       if (audioStorageID && audioStorageID.length > 0) {
         await deleteAudio({ audioStorageID: audioStorageID });
       }
-      const response = await getPodcastAudio({
+      const audioBuffer = await getPodcastAudio({
         input: voicePrompt.replace(/^\s*$/gim, ""),
         voice: voiceType,
       });
 
-      const blob = new Blob([response], { type: "audio/wav" });
+      const blob = new Blob([audioBuffer], { type: "audio/wav" });
       const fileName = `podcast-${uuidv4()}.mp3`;
       const file = new File([blob], fileName, { type: "audio/mpeg" });
 
