@@ -31,7 +31,8 @@ Podify is an innovative podcast app that leverages AI to generate high-quality p
 
 1. NextJS
 2. Convex + Clerk
-3. Stable Diffusion + GCP-TTS
+3. Stable Diffusion
+4. Azure Speech Synthesis
 
 ## Run Locally
 
