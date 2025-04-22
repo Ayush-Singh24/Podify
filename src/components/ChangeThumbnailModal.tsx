@@ -27,7 +27,7 @@ export default function ChangeThumbnailModal({
   const [imageURL, setImageURL] = useState<string>("");
   const [imagePrompt, setImagePrompt] = useState<string>("");
   const [imageStorageID, setImageStorageID] = useState<Id<"_storage"> | null>(
-    oldImageStorageID,
+    null,
   );
 
   const { toast } = useToast();
@@ -72,7 +72,7 @@ export default function ChangeThumbnailModal({
           setImagePrompt={setImagePrompt}
           setImageStorageID={setImageStorageID}
         />
-        {oldImageStorageID !== imageStorageID && (
+        {imageStorageID && (
           <Button onClick={changeThumbnail}>Change Thumbnail</Button>
         )}
       </DialogContent>

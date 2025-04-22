@@ -15,6 +15,7 @@ import { cn } from "@/lib/utils";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Edit, Trash } from "lucide-react";
 import UpdatePodcastModal from "./UpdatePodcastModal";
+import ConfirmDeleteModal from "./ConfirmDeleteModal";
 
 export default function PodcastDetailPlayer({
   isOwner,
@@ -34,6 +35,7 @@ export default function PodcastDetailPlayer({
     useState<boolean>(false);
   const [isUpdatePodcastModalOpen, setIsUpdatePodcastModalOpen] =
     useState<boolean>(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
 
   const deletePodcast = useMutation(api.podcasts.deletePodcast);
 
@@ -99,6 +101,11 @@ export default function PodcastDetailPlayer({
         oldPodcastDescription={podcastDescription}
         setIsUpdatePodcastModalOpen={setIsUpdatePodcastModalOpen}
         isUpdatePodcastModalOpen={isUpdatePodcastModalOpen}
+      />
+      <ConfirmDeleteModal
+        handleDelete={handleDelete}
+        isDeleteModalOpen={isDeleteModalOpen}
+        setIsDeleteModalOpen={setIsDeleteModalOpen}
       />
       <div className="mt-6 flex w-full justify-between max-md:justify-center">
         <div className="flex flex-col gap-8 max-md:items-center md:flex-row">
@@ -176,6 +183,7 @@ export default function PodcastDetailPlayer({
                 <Button
                   variant="ghost"
                   className="text-white-1 hover:bg-black-2 hover:text-white-1 w-full flex justify-start"
+                  onClick={() => setIsDeleteModalOpen(true)}
                 >
                   <div className="flex gap-2 items-center">
                     <Trash size={20} />
