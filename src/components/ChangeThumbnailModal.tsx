@@ -2,6 +2,7 @@ import {
   Dialog,
   DialogContent,
   DialogHeader,
+  DialogOverlay,
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Dispatch, SetStateAction, useState } from "react";
@@ -26,7 +27,7 @@ export default function ChangeThumbnailModal({
   const [imageURL, setImageURL] = useState<string>("");
   const [imagePrompt, setImagePrompt] = useState<string>("");
   const [imageStorageID, setImageStorageID] = useState<Id<"_storage"> | null>(
-    oldImageStorageID
+    oldImageStorageID,
   );
 
   const { toast } = useToast();
@@ -58,9 +59,10 @@ export default function ChangeThumbnailModal({
 
   return (
     <Dialog open={isThumbnailModalOpen} onOpenChange={setIsThumbnailModalOpen}>
-      <DialogContent className="bg-black-6 border-none text-white-1 px-2">
+      <DialogOverlay className="bg-black/60 backdrop-blur-sm" />
+      <DialogContent className="bg-black-6 border-none text-white-1 px-3 py-4">
         <DialogHeader>
-          <DialogTitle>Change Thumbnail</DialogTitle>
+          <DialogTitle className="pl-2">Change Thumbnail</DialogTitle>
         </DialogHeader>
         <GenerateThumbnail
           imageStorageID={imageStorageID}

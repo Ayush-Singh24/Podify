@@ -40,6 +40,7 @@ export interface EmptyStateProps {
 export interface PodcastDetailPlayerProps {
   audioURL?: string;
   podcastTitle: string;
+  podcastDescription: string;
   author: string;
   isOwner: boolean;
   imageURL?: string;

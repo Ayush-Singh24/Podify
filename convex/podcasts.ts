@@ -52,6 +52,35 @@ export const createPodcast = mutation({
   },
 });
 
+export const updatePodcast = mutation({
+  args: {
+    podcastID: v.id("podcasts"),
+    podcastTitle: v.string(),
+    podcastDescription: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new ConvexError("Not authenticated!");
+    }
+
+    const user = await ctx.db
+      .query("users")
+      .filter((u) => u.eq(u.field("email"), identity.email))
+      .collect();
+
+    if (user.length === 0) {
+      throw new ConvexError("User not found");
+    }
+
+    return await ctx.db.patch(args.podcastID, {
+      podcastDescription: args.podcastDescription,
+      podcastTitle: args.podcastTitle,
+    });
+  },
+});
+
 export const getTrendingPodcasts = query({
   handler: async (ctx) => {
     const podcasts = await ctx.db.query("podcasts").collect();

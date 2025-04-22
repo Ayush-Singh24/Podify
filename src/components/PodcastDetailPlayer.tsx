@@ -12,6 +12,9 @@ import { api } from "../../convex/_generated/api";
 import { useAudio } from "@/providers/AudioProvider";
 import ChangeThumbnailModal from "./ChangeThumbnailModal";
 import { cn } from "@/lib/utils";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { Edit, Trash } from "lucide-react";
+import UpdatePodcastModal from "./UpdatePodcastModal";
 
 export default function PodcastDetailPlayer({
   isOwner,
@@ -19,6 +22,7 @@ export default function PodcastDetailPlayer({
   imageURL,
   authorImageURL,
   podcastTitle,
+  podcastDescription,
   podcastID,
   imageStorageID,
   audioURL,
@@ -26,8 +30,9 @@ export default function PodcastDetailPlayer({
   authorID,
 }: PodcastDetailPlayerProps) {
   const router = useRouter();
-  const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [isThumbnailModalOpen, setIsThumbnailModalOpen] =
+    useState<boolean>(false);
+  const [isUpdatePodcastModalOpen, setIsUpdatePodcastModalOpen] =
     useState<boolean>(false);
 
   const deletePodcast = useMutation(api.podcasts.deletePodcast);
@@ -88,6 +93,13 @@ export default function PodcastDetailPlayer({
         isThumbnailModalOpen={isThumbnailModalOpen}
         setIsThumbnailModalOpen={setIsThumbnailModalOpen}
       />
+      <UpdatePodcastModal
+        podcastID={podcastID}
+        oldPodcastTitle={podcastTitle}
+        oldPodcastDescription={podcastDescription}
+        setIsUpdatePodcastModalOpen={setIsUpdatePodcastModalOpen}
+        isUpdatePodcastModalOpen={isUpdatePodcastModalOpen}
+      />
       <div className="mt-6 flex w-full justify-between max-md:justify-center">
         <div className="flex flex-col gap-8 max-md:items-center md:flex-row">
           <Image
@@ -135,28 +147,43 @@ export default function PodcastDetailPlayer({
         </div>
         {isOwner && (
           <div className="relative mt-2">
-            <Image
-              src="/icons/three-dots.svg"
-              width={20}
-              height={30}
-              alt="three dots icon"
-              className="cursor-pointer"
-              onClick={() => setIsDeleting((prev) => !prev)}
-            />
-            {isDeleting && (
-              <div
-                className="absolute -left-32 -top-2 z-10 flex w-32 cursor-pointer justify-center gap-2 rounded-md bg-black-6 py-1.5 hover:bg-black-2"
-                onClick={handleDelete}
-              >
+            <Popover>
+              <PopoverTrigger>
                 <Image
-                  src="/icons/delete.svg"
-                  width={16}
-                  height={16}
-                  alt="delete"
+                  src="/icons/three-dots.svg"
+                  width={20}
+                  height={30}
+                  alt="three dots icon"
+                  className="cursor-pointer"
                 />
-                <h2 className="text-16 font-normal text-white-1">Delete</h2>
-              </div>
-            )}
+              </PopoverTrigger>
+              <PopoverContent
+                side="bottom"
+                align="end"
+                sideOffset={10}
+                className="bg-black-1 border-black-2"
+              >
+                <Button
+                  variant="ghost"
+                  className="text-white-1 hover:bg-black-2 hover:text-white-1 w-full flex justify-start"
+                  onClick={() => setIsUpdatePodcastModalOpen(true)}
+                >
+                  <div className="flex gap-2 items-center">
+                    <Edit size={20} />
+                    <span>Edit</span>
+                  </div>
+                </Button>
+                <Button
+                  variant="ghost"
+                  className="text-white-1 hover:bg-black-2 hover:text-white-1 w-full flex justify-start"
+                >
+                  <div className="flex gap-2 items-center">
+                    <Trash size={20} />
+                    <span>Delete</span>
+                  </div>
+                </Button>
+              </PopoverContent>
+            </Popover>
           </div>
         )}
       </div>
